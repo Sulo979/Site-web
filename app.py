@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 
 app = Flask(__name__)
 
@@ -111,20 +111,40 @@ def contact():
     <body style='background-color: #f4f7f6; font-family: Arial, sans-serif; text-align: center; padding: 50px;'>
         <h1 {STYLE_TITRE}>Contactez-moi</h1>
         <div style='background-color: white; padding: 30px; border-radius: 10px; display: inline-block; text-align: left; width: 400px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);'>
-            <form>
+            <form action='/traitement-contact' method='POST'>
                 <label style='color: #34495e; font-weight: bold;'>Votre nom :</label><br>
-                <input type='text' placeholder='Ex: Jean Dupont' {STYLE_INPUT}><br>
+                <input type='text' name='nom' placeholder='Ex: Jean Dupont' {STYLE_INPUT}><br>
                 
                 <label style='color: #34495e; font-weight: bold;'>Votre e-mail :</label><br>
-                <input type='email' placeholder='Ex: jean@example.com' {STYLE_INPUT}><br>
+                <input type='email' name='email' placeholder='Ex: jean@example.com' {STYLE_INPUT}><br>
                 
                 <label style='color: #34495e; font-weight: bold;'>Votre projet / message :</label><br>
-                <textarea rows='4' placeholder='Parlez-moi de votre besoin...' {STYLE_INPUT}></textarea><br>
+                <textarea name='message' rows='4' placeholder='Parlez-moi de votre besoin...' {STYLE_INPUT}></textarea><br>
                 
-                <button type='button' style='background-color: #2ecc71; color: white; padding: 10px 20px; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; width: 100%;'>Envoyer le message</button>
+                <button type='submit' style='background-color: #2ecc71; color: white; padding: 10px 20px; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; width: 100%;'>Envoyer le message</button>
             </form>
         </div>
         <br>
+        <a href="/" {STYLE_BOUTON}>Retour à l'accueil</a>
+    </body>
+    """
+
+@app.route("/traitement-contact", methods=["POST"])
+def traitement_contact():
+    # Récupération des données tapées par l'utilisateur
+    nom = request.form.get("nom")
+    email = request.form.get("email")
+    message = request.form.get("message")
+    
+    # Pour l'instant, on affiche une page de confirmation simple
+    return f"""
+    <body style='background-color: #f4f7f6; font-family: Arial, sans-serif; text-align: center; padding: 50px;'>
+        <h1 style='color: #27ae60;'>Message bien reçu !</h1>
+        <div style='background-color: white; padding: 30px; border-radius: 10px; display: inline-block; max-width: 500px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); text-align: left;'>
+            <p style='color: #34495e; font-size: 1.1em;'>Merci <b>{nom}</b>, votre message a bien été pris en compte.</p>
+            <p style='color: #555;'>Nous vous répondrons rapidement à l'adresse : <b>{email}</b></p>
+        </div>
+        <br><br>
         <a href="/" {STYLE_BOUTON}>Retour à l'accueil</a>
     </body>
     """
