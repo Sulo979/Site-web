@@ -91,12 +91,37 @@ def accueil():
             </div>
         </div>
 
+        <div style='padding: 50px 15px; background-color: #ffffff; text-align: center;'>
+            <h2 style='color: #2c3e50; margin-bottom: 30px;'>Contactez-moi</h2>
+            <div style='background: #f8f9fa; padding: 25px; border-radius: 15px; display: inline-block; width: 90%; max-width: 420px; box-shadow: 0px 5px 15px rgba(0,0,0,0.05); text-align: left; box-sizing: border-box;'>
+                <form action="https://formspree.io/f/ton_code_unique" method="POST">
+                    <label style='color: #2c3e50; font-weight: bold;'>Votre nom :</label>
+                    <input type="text" name="nom" placeholder="Ex: Jean Dupont" required {STYLE_INPUT}>
+                    
+                    <label style='color: #2c3e50; font-weight: bold;'>Votre e-mail :</label>
+                    <input type="email" name="email" placeholder="Ex: jean@example.com" required {STYLE_INPUT}>
+                    
+                    <label style='color: #2c3e50; font-weight: bold;'>Type de projet :</label>
+                    <select name="projet" {STYLE_INPUT}>
+                        <option value="Site Vitrine">Site Vitrine</option>
+                        <option value="Application Python / Flask">Application Python / Flask</option>
+                        <option value="Design UX/UI">Design UX/UI</option>
+                        <option value="Autre demande">Autre demande</option>
+                    </select>
+                    
+                    <label style='color: #2c3e50; font-weight: bold;'>Votre message :</label>
+                    <textarea name="message" rows="4" placeholder="Parlez-moi de votre besoin..." required style='width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; font-family: Arial, sans-serif; font-size: 1em;'></textarea>
+                    
+                    <button type="submit" style='width: 100%; padding: 15px; background: #27ae60; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; margin-top: 10px; font-size: 1em;'>Envoyer le message</button>
+                </form>
+            </div>
+        </div>
+
         <div {STYLE_FOOTER}>
             <p style='margin: 0 0 15px 0;'>&copy; 2026 Sulo Créateur - Tous droits réservés.</p>
             <p style='margin: 0;'>
                 <a href='/' style='color: #2ecc71; text-decoration: none; margin: 0 10px;'>Accueil</a> | 
-                <a href='/portfolio' style='color: #2ecc71; text-decoration: none; margin: 0 10px;'>Portfolio</a> | 
-                <a href='/contact' style='color: #2ecc71; text-decoration: none; margin: 0 10px;'>Contact</a>
+                <a href='/portfolio' style='color: #2ecc71; text-decoration: none; margin: 0 10px;'>Portfolio</a>
             </p>
         </div>
     </body>
@@ -134,76 +159,6 @@ def portfolio():
             </div>
         </div>
 
-        <br><br>
-        <a href="/" {STYLE_BOUTON}>Retour à l'accueil</a>
-    </body>
-    </html>
-    """
-
-@app.route("/contact")
-def contact():
-    return f"""
-    <!DOCTYPE html>
-    <html lang="fr">
-    <head>
-        <meta charset="UTF-8">
-        {META_VIEWPORT}
-        <title>Contact - Sulo Créateur</title>
-    </head>
-    <body style='background-color: #f8f9fa; font-family: Arial, sans-serif; text-align: center; padding: 40px 15px; margin: 0;'>
-        <h1 style='color: #2c3e50; margin-bottom: 20px;'>Contactez-moi</h1>
-        <div style='background: white; padding: 25px; border-radius: 15px; display: inline-block; width: 90%; max-width: 420px; box-shadow: 0px 5px 15px rgba(0,0,0,0.1); text-align: left; box-sizing: border-box;'>
-            <form action="/traitement-contact" method="POST">
-                <label style='color: #2c3e50; font-weight: bold;'>Votre nom :</label>
-                <input type="text" name="nom" placeholder="Ex: Jean Dupont" required {STYLE_INPUT}>
-                
-                <label style='color: #2c3e50; font-weight: bold;'>Votre e-mail :</label>
-                <input type="email" name="email" placeholder="Ex: jean@example.com" required {STYLE_INPUT}>
-                
-                <label style='color: #2c3e50; font-weight: bold;'>Type de projet :</label>
-                <select name="projet" {STYLE_INPUT}>
-                    <option value="Site Vitrine">Site Vitrine</option>
-                    <option value="Application Python / Flask">Application Python / Flask</option>
-                    <option value="Design UX/UI">Design UX/UI</option>
-                    <option value="Autre demande">Autre demande</option>
-                </select>
-                
-                <label style='color: #2c3e50; font-weight: bold;'>Votre message :</label>
-                <textarea name="message" rows="4" placeholder="Parlez-moi de votre besoin..." required style='width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; font-family: Arial, sans-serif; font-size: 1em;'></textarea>
-                
-                <button type="submit" style='width: 100%; padding: 15px; background: #27ae60; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; margin-top: 10px; font-size: 1em;'>Envoyer le message</button>
-            </form>
-        </div>
-        <br><br>
-        <a href="/" {STYLE_BOUTON}>Retour à l'accueil</a>
-    </body>
-    </html>
-    """
-
-@app.route("/traitement-contact", methods=["POST"])
-def traitement_contact():
-    nom = request.form.get("nom")
-    email = request.form.get("email")
-    projet = request.form.get("projet")
-    message = request.form.get("message")
-
-    return f"""
-    <!DOCTYPE html>
-    <html lang="fr">
-    <head>
-        <meta charset="UTF-8">
-        {META_VIEWPORT}
-        <title>Confirmation - Sulo Créateur</title>
-    </head>
-    <body style='background-color: #f8f9fa; font-family: Arial, sans-serif; text-align: center; padding: 40px 15px; margin: 0;'>
-        <h1 style='color: #27ae60;'>Message bien reçu !</h1>
-        <div style='background-color: white; padding: 25px; border-radius: 15px; display: inline-block; width: 90%; max-width: 450px; box-shadow: 0px 5px 15px rgba(0,0,0,0.1); text-align: left; box-sizing: border-box;'>
-            <p style='color: #2c3e50;'>Merci <b>{nom}</b>, votre demande concernant un <b>{projet}</b> a bien été enregistrée.</p>
-            <p style='color: #555;'>Nous vous répondrons rapidement à l'adresse : <b>{email}</b></p>
-            <div style='background: #f1f8e9; padding: 12px; border-left: 4px solid #27ae60; margin: 15px 0; color: #555;'>
-                <em>"{message}"</em>
-            </div>
-        </div>
         <br><br>
         <a href="/" {STYLE_BOUTON}>Retour à l'accueil</a>
     </body>
