@@ -3,6 +3,7 @@ from flask import Flask
 app = Flask(__name__)
 
 META_VIEWPORT = "<meta name='viewport' content='width=device-width, initial-scale=1.0'>"
+GOOGLE_VERIFICATION = "<meta name=\"google-site-verification\" content=\"MA6m1QsAy9NgDPwlrNjsrQax9zX2J1zn8Ye5pK6HsH8\" />"
 
 GLOBAL_STYLE = """
 <style>
@@ -84,6 +85,7 @@ def accueil():
     <head>
         <meta charset="UTF-8">
         {META_VIEWPORT}
+        {GOOGLE_VERIFICATION}
         <title>Sulo Créateur - Expert Web & Gaming Universe</title>
         {GLOBAL_STYLE}
     </head>
@@ -304,6 +306,7 @@ def portfolio():
     <head>
         <meta charset="UTF-8">
         {META_VIEWPORT}
+        {GOOGLE_VERIFICATION}
         <title>Portfolio - Sulo Créateur</title>
         {GLOBAL_STYLE}
     </head>
